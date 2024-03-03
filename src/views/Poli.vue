@@ -48,13 +48,30 @@ onMounted(() => {
         // Mengambil data nm_dokter (kolom keempat)
         var nmDokter = $(this).closest('tr').find('td:eq(3)').text();
 
-        var data = {
+        const data = {
             "poli": selectedPoli,
             "nm_pasien": nmPasien,
             "dokter": nmDokter,
         }
-        var jsonData = JSON.stringify(data)
-        console.log(jsonData)
+        fetch('https://api-antrian.rsreksawaluya.com.dev/api/antri-ralan', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Respon tidak berhasil: ' + response.status);
+                }
+                // Check if response body is not empty
+                const contentType = response.headers.get('content-type');
+                if (contentType && contentType.includes('application/json')) {
+                    return response.json();
+                } else {
+                    return {};
+                }
+            })
     });
 })
 </script>

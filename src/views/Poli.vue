@@ -21,7 +21,7 @@ const fetchDataRalan = async () => {
                     {
                         data: null,
                         render: function (data, type, row) {
-                            return '<button type="button" class="btn btn-secondary btn-detail"><i class="fas fa-play"></i></button>';
+                            return `<button type="button" class="btn btn-secondary btn-detail" data-pasien="${row.nm_pasien}" data-dokter="${row.nm_dokter}"><i class="fas fa-play"></i></button>`;
                         }
                     }
                 ]
@@ -41,19 +41,26 @@ onMounted(() => {
     });
 
     // Event listener untuk tombol Detail
+    // Event listener untuk tombol Detail
     $(document).on('click', '.btn-detail', function () {
-        // Mengambil data nm_pasien (kolom kedua)
-        var nmPasien = $(this).closest('tr').find('td:eq(1)').text();
+        // Mengambil data nm_pasien dan nm_dokter
+        var nmPasien = $(this).data('pasien');
+        var nmDokter = $(this).data('dokter');
 
-        // Mengambil data nm_dokter (kolom keempat)
-        var nmDokter = $(this).closest('tr').find('td:eq(3)').text();
+        // Jika poli belum dipilih atau hasilnya bukan angka, munculkan alert
+        if (!selectedPoli || isNaN(selectedPoli)) {
+            alert('Pilih nomor poli terlebih dahulu!');
+            return;
+        }
 
         const data = {
             "poli": selectedPoli,
             "nm_pasien": nmPasien,
             "dokter": nmDokter,
         }
-        fetch('https://api-antrian.rsreksawaluya.com.dev/api/antri-ralan', {
+
+        // Lakukan request POST ke endpoint
+        fetch(api.defaults.baseURL + 'api/antri-ralan', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -72,7 +79,11 @@ onMounted(() => {
                     return {};
                 }
             })
-    });
+            .catch(error => {
+                console.error(error);
+                alert('Terjadi kesalahan saat melakukan request!');
+            });
+    })
 })
 </script>
 

@@ -1,7 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import api from '../api/endpoint';
-import axios from 'axios'
 
 const ralan = ref([]);
 

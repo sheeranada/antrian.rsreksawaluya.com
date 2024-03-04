@@ -79,6 +79,9 @@ onMounted(() => {
                     return {};
                 }
             })
+            .then(data => {
+                alert('Request untuk panggilan telah dikirim')
+            })
             .catch(error => {
                 console.error(error);
                 alert('Terjadi kesalahan saat melakukan request!');
@@ -91,8 +94,16 @@ onMounted(() => {
 
 <template>
     <div>
-        <h1>ini halaman poli</h1>
-        <div class="container">
+        <nav class="navbar " style="background-color: #e3f2fd;">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <img src="../assets/logo_header.png" alt="Logo" width="100" height="35"
+                        class="d-inline-block align-text-top logo px-1 py-1">
+                    UNIT RAWAT JALAN
+                </a>
+            </div>
+        </nav>
+        <div class="container mt-3">
             <div class="row flex-row-reverse">
                 <div class="col-3">
                     <div class="input-group mb-3">

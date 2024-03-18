@@ -1,16 +1,19 @@
 <script setup>
 import { ref, onMounted, onErrorCaptured } from 'vue'
-import api from '../api/endpoint';
+import api from '../api/endpoint'
+
+const namaPasienDipilih = ref('')
 
 window.speak = (nmPasien) => {
-    const utterance = new SpeechSynthesisUtterance(`Atas nama ${nmPasien}. harap menuju ke loket farmasi`);
-    utterance.lang = "id-ID";
-    utterance.rate = 0.8;
-    speechSynthesis.speak(utterance);
+    namaPasienDipilih.value = nmPasien
+    const utterance = new SpeechSynthesisUtterance(`Atas nama ${nmPasien}. harap menuju ke loket farmasi`)
+    utterance.lang = "id-ID"
+    utterance.rate = 0.8
+    speechSynthesis.speak(utterance)
 }
 
-const listAnfar = ref([]);
-let dataTableInstance = null;
+const listAnfar = ref([])
+let dataTableInstance = null
 
 const initializeDataTable = (data) => {
     dataTableInstance = new DataTable('#myTable', {
@@ -26,44 +29,40 @@ const initializeDataTable = (data) => {
             {
                 data: null,
                 render: function (data, type, row) {
-                    return `<button type="button" class="btn btn-secondary btn-detail" onclick="speak('${row.nm_pasien}')"><i class="fas fa-play"></i></button>`;
+                    return `<button type="button" class="btn btn-secondary btn-detail" onclick="speak('${row.nm_pasien}')"><i class="fas fa-play"></i></button>`
                 }
             },
         ]
-    });
+    })
 }
 
 const updateDataTable = (data) => {
-    dataTableInstance.clear().rows.add(data).draw();
+    dataTableInstance.clear().rows.add(data).draw()
 }
 
 const fetchListAnfar = async () => {
     try {
-        const response = await api.get('api/farmasi/anfar');
+        const response = await api.get('api/farmasi/anfar')
         if (!dataTableInstance) {
-            initializeDataTable(response.data);
+            initializeDataTable(response.data)
         } else {
-            updateDataTable(response.data);
+            updateDataTable(response.data)
         }
     } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Error fetching data:', error)
     }
 }
 
 onMounted(() => {
-    fetchListAnfar();
-    setInterval(fetchListAnfar, 5000);
+    fetchListAnfar()
+    setInterval(fetchListAnfar, 5000)
 })
 
 onErrorCaptured((error) => {
-    console.error('Error captured in component:', error);
-    return false;
-});
+    console.error('Error captured in component:', error)
+    return false
+})
 </script>
-
-
-
-
 
 <template>
     <div>
@@ -90,7 +89,7 @@ onErrorCaptured((error) => {
                             </tr>
                         </thead>
                         <tbody>
-
+                            <!-- Data Rows Here -->
                         </tbody>
                     </table>
                 </div>

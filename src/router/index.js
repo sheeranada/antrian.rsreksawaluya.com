@@ -5,6 +5,7 @@ import Anpol from "../views/Anpol.vue";
 import Anlok from "../views/Anlok.vue";
 import Displayloket from "../views/Displayloket.vue";
 import Farmasi from "@/views/Farmasi.vue";
+import DisplayFarmasi from "@/views/DisplayFarmasi.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,6 +39,11 @@ const router = createRouter({
       path: "/farmasi",
       name: "farmasi",
       component: Farmasi,
+    },
+    {
+      path: "/display-farmasi",
+      name: "display-farmasi",
+      component: DisplayFarmasi,
     },
   ],
 });

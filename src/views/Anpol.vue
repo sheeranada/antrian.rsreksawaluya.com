@@ -27,7 +27,7 @@ const fetchAnpol = async () => {
 const speakData = (data) => {
     const utterance = new SpeechSynthesisUtterance();
     utterance.lang = "id-ID";
-    utterance.rate = 0.95;
+    utterance.rate = 0.8;
 
     // Teks untuk pengucapan
     let textToSpeak = `Pasien atas nama ${data.nm_pasien}. `;
@@ -47,7 +47,7 @@ onMounted(() => {
     fetchAnpol(); // Panggil saat komponen dimuat
 
     // Setup polling untuk pembaruan data setiap 5.5 detik
-    setInterval(fetchAnpol, 2000);
+    setInterval(fetchAnpol, 1000);
 })
 </script>
 

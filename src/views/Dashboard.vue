@@ -4,7 +4,8 @@
             <div class="row text-sm-center">
                 <div class="col">
                     <router-link to="/poli">poli</router-link><br>
-                    <router-link to="/anpol">anpol</router-link>
+                    <router-link to="/anpol">anpol</router-link><br>
+                    <router-link to="/anlok">anlok</router-link>
                 </div>
             </div>
             <div class="row text-center">

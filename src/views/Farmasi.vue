@@ -1,66 +1,58 @@
 <script setup>
-import { ref, onMounted, onErrorCaptured } from 'vue'
+import { ref, onMounted } from 'vue'
 import api from '../api/endpoint'
 
-const namaPasienDipilih = ref('')
-
-window.speak = (nmPasien) => {
-    namaPasienDipilih.value = nmPasien
-    const utterance = new SpeechSynthesisUtterance(`Atas nama ${nmPasien}. harap menuju ke loket farmasi`)
-    utterance.lang = "id-ID"
-    utterance.rate = 0.8
-    speechSynthesis.speak(utterance)
-}
-
 const listAnfar = ref([])
-let dataTableInstance = null
-
-const initializeDataTable = (data) => {
-    dataTableInstance = new DataTable('#myTable', {
-        layout: {
-            top1: 'searchBuilder'
-        },
-        data: data,
-        columns: [
-            { data: 'tgl_peresepan' },
-            { data: 'no_resep' },
-            { data: 'nm_pasien' },
-            { data: 'status' },
-            {
-                data: null,
-                render: function (data, type, row) {
-                    return `<button type="button" class="btn btn-secondary btn-detail" onclick="speak('${row.nm_pasien}')"><i class="fas fa-play"></i></button>`
-                }
-            },
-        ]
-    })
-}
-
-const updateDataTable = (data) => {
-    dataTableInstance.clear().rows.add(data).draw()
-}
+const items = ref([]);
+const selectedDate = ref('')
+const selectedStatus = ref('')
 
 const fetchListAnfar = async () => {
     try {
-        const response = await api.get('api/farmasi/anfar')
-        if (!dataTableInstance) {
-            initializeDataTable(response.data)
-        } else {
-            updateDataTable(response.data)
-        }
+        const response = await api.get('/api/farmasi/anfar')
+        items.value = response.data
     } catch (error) {
         console.error('Error fetching data:', error)
+    }
+}
+const filterItems = () => {
+    let filteredItems = items.value
+
+    if (selectedDate.value) {
+        filteredItems = filteredItems.filter(item => item.tgl_peresepan === selectedDate.value)
+    }
+    if (selectedStatus.value) {
+        filteredItems = filteredItems.filter(item => item.status === selectedStatus.value)
+    }
+    return filteredItems
+}
+const panggilPasien = (nm_pasien) => {
+    window.alert(`Memanggil pasien: ${nm_pasien}`)
+    postNmPasien(nm_pasien)
+}
+const postNmPasien = async (nm_pasien) => {
+    try {
+        const response = await fetch(api.defaults.baseURL + 'api/farmasi/pasien-anfar', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ nm_pasien })
+        })
+
+        if (response.ok) {
+            console.log('Data nm_pasien berhasil disimpan ke database')
+        } else {
+            throw new Error('Gagal menyimpan data nm_pasien ke database')
+        }
+    } catch (error) {
+        console.error('Error posting data:', error)
     }
 }
 
 onMounted(() => {
     fetchListAnfar()
     setInterval(fetchListAnfar, 5000)
-})
-
-onErrorCaptured((error) => {
-    console.error('Error captured in component:', error)
-    return false
 })
 </script>
 
@@ -75,10 +67,40 @@ onErrorCaptured((error) => {
                 </a>
             </div>
         </nav>
-        <div class="container px-5">
+        <div class="container-fluid mt-3">
+            <div class="row">
+                <div class="col d-flex flex-row-reverse">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">Pasien dipanggil :</h5>
+                            <p class="card-text">John Doe</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <h1>ANTRIAN RESEP</h1>
+                </div>
+                <div class="mb-3 col-4">
+                    <label for="tgl_peresepan" class="form-label">Tanggal Peresepan</label>
+                    <input type="date" class="form-control" id="tgl_peresepan" aria-describedby="emailHelp"
+                        v-model="selectedDate" @change="filterItems">
+                </div>
+                <div class="mb-3 col-4">
+                    <label for="status" class="form-label">Status</label>
+                    <select class="form-select" aria-label="Default select example" v-model="selectedStatus"
+                        @change="filterItems">
+                        <option selected disabled>Pilih status pasien</option>
+                        <option value="ralan">Ralan</option>
+                        <option value="ranap">Ranap</option>
+                    </select>
+                </div>
+            </div>
             <div class="row">
                 <div class="col">
-                    <table id="myTable" class="table table-striped table-hover table-bordered">
+                    <table id="myTable"
+                        class="table table-striped table-hover table-bordered table-responsive table-sm">
                         <thead>
                             <tr>
                                 <th>TGL PERESEPAN</th>
@@ -89,7 +111,18 @@ onErrorCaptured((error) => {
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Data Rows Here -->
+                            <tr v-for="item in filterItems()">
+                                <td>{{ item.tgl_peresepan }}</td>
+                                <td>{{ item.no_resep }}</td>
+                                <td>{{ item.nm_pasien }}</td>
+                                <td>{{ item.status }}</td>
+                                <td>
+                                    <button type="button" class="btn btn-info" @click="panggilPasien(item.nm_pasien)"><i
+                                            class="fas fa-play"></i>
+                                        Panggil
+                                    </button>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

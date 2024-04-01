@@ -8,8 +8,7 @@ const selectedDate = ref('')
 const selectedStatus = ref('')
 const tampilkanYgDipanggil = ref({})
 const synth = window.speechSynthesis;
-const lastData = null
-
+let lastData = null
 
 
 const fetchListAnfar = async () => {
@@ -57,18 +56,22 @@ const postNmPasien = async (nm_pasien) => {
 const fetchTampilkanYgDipanggil = async () => {
     try {
         const response = await api.get('/api/farmasi/pasien-dipanggil-anfar')
-        tampilkanYgDipanggil.value = response.data
-        speakData(tampilkanYgDipanggil)
+        const newData = response.data
+        if (JSON.stringify(newData) !== JSON.stringify(lastData)) {
+            tampilkanYgDipanggil.value = newData
+            speakData(newData)
+            lastData = newData
+        }
     } catch (error) {
         console.log('rungkad:', error)
     }
 }
-const speakData = (tampilkanYgDipanggil) => {
+const speakData = (data) => {
     const utterance = new SpeechSynthesisUtterance()
     utterance.lang = "id-ID"
     utterance.rate = 0.8
 
-    let textToSpeak = `Pasien atas nama ${tampilkanYgDipanggil.value.nm_pasien}. harap menuju ke loket farmasi`
+    let textToSpeak = `Pasien atas nama ${data.nm_pasien}. harap menuju ke loket farmasi`
 
     utterance.onend = () => {
         synth.cancel()

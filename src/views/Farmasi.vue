@@ -6,6 +6,11 @@ const listAnfar = ref([])
 const items = ref([]);
 const selectedDate = ref('')
 const selectedStatus = ref('')
+const tampilkanYgDipanggil = ref({})
+const synth = window.speechSynthesis;
+const lastData = null
+
+
 
 const fetchListAnfar = async () => {
     try {
@@ -49,10 +54,37 @@ const postNmPasien = async (nm_pasien) => {
         console.error('Error posting data:', error)
     }
 }
+const fetchTampilkanYgDipanggil = async () => {
+    try {
+        const response = await api.get('/api/farmasi/pasien-dipanggil-anfar')
+        tampilkanYgDipanggil.value = response.data
+        speakData(tampilkanYgDipanggil)
+    } catch (error) {
+        console.log('rungkad:', error)
+    }
+}
+const speakData = (tampilkanYgDipanggil) => {
+    const utterance = new SpeechSynthesisUtterance()
+    utterance.lang = "id-ID"
+    utterance.rate = 0.8
+
+    let textToSpeak = `Pasien atas nama ${tampilkanYgDipanggil.value.nm_pasien}. harap menuju ke loket farmasi`
+
+    utterance.onend = () => {
+        synth.cancel()
+    }
+    utterance.text = textToSpeak
+    synth.speak(utterance)
+}
 
 onMounted(() => {
     fetchListAnfar()
-    setInterval(fetchListAnfar, 5000)
+    fetchTampilkanYgDipanggil()
+    // setInterval(fetchListAnfar, 5000)
+    setInterval(() => {
+        fetchListAnfar()
+        fetchTampilkanYgDipanggil()
+    }, 2000)
 })
 </script>
 
@@ -69,11 +101,11 @@ onMounted(() => {
         </nav>
         <div class="container-fluid mt-3">
             <div class="row">
-                <div class="col d-flex flex-row-reverse">
-                    <div class="card" style="width: 18rem;">
+                <div class="col d-flex flex-row-reverse text-center">
+                    <div class="card text-bg-light border-secondary" style="max-width: 35rem;">
+                        <div class="card-header">PASIEN DIPANGGIL</div>
                         <div class="card-body">
-                            <h5 class="card-title">Pasien dipanggil :</h5>
-                            <p class="card-text">John Doe</p>
+                            <p class="card-text">{{ tampilkanYgDipanggil.nm_pasien }}</p>
                         </div>
                     </div>
                 </div>

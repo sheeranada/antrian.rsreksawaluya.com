@@ -87,7 +87,7 @@ onMounted(() => {
     setInterval(() => {
         fetchListAnfar()
         fetchTampilkanYgDipanggil()
-    }, 2000)
+    }, 3500)
 })
 </script>
 

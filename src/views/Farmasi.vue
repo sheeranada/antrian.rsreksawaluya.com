@@ -83,7 +83,6 @@ const speakData = (data) => {
 onMounted(() => {
     fetchListAnfar()
     fetchTampilkanYgDipanggil()
-    // setInterval(fetchListAnfar, 5000)
     setInterval(() => {
         fetchListAnfar()
         fetchTampilkanYgDipanggil()

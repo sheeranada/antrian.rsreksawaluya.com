@@ -1,0 +1,85 @@
+.main {
+    background: url("/src/assets/display_farmasi/img/12_asadas12221.jpg") center/cover no-repeat;
+    height: 100%;
+    width: 100%;
+    position: fixed
+}
+
+#header {
+    text-align: center;
+    height: 81px;
+    background: linear-gradient(109deg, rgba(0, 0, 0, 0.541), rgba(248, 144, 8, 0.603));
+    backdrop-filter: blur(17px);
+    -webkit-backdrop-filter: blur(17px);
+    box-shadow: 2px 3px 6px var(--bs-body-color)
+}
+
+#resep {
+    height: 100%
+}
+
+#box-resep {
+    height: 100%;
+    border-radius: 21px;
+    background: rgba(248, 249, 250, .12);
+    backdrop-filter: blur(21px);
+    -webkit-backdrop-filter: blur(21px);
+    box-shadow: 4px 3px 6px var(--bs-secondary-color)
+}
+
+#teks-resep {
+    color: var(--bs-gray-100);
+    margin-bottom: 21px
+}
+
+#box-pasien {
+    text-align: center;
+    border-radius: 20px;
+    box-shadow: 4px 4px 9px var(--bs-body-color);
+    background: #ffffff1c;
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    width: 100%
+}
+
+.text-pasien {
+    color: var(--bs-body-bg);
+    text-shadow: 4px 3px 4px var(--bs-body-color)
+}
+
+.box-lain {
+    height: 100%;
+    border-bottom-style: ridge;
+    border-top-left-radius: 208px;
+    border-bottom-left-radius: 208px;
+    background: linear-gradient(-141deg, rgba(13, 110, 253, .64) 56%, var(--bs-emphasis-color));
+    backdrop-filter: blur(17px);
+    -webkit-backdrop-filter: blur(17px)
+}
+
+.logo {
+    height: 75px;
+    padding: 6px
+}
+
+.rs {
+    color: var(--bs-body-bg);
+    font-weight: 700
+}
+
+.motto {
+    color: var(--bs-body-bg)
+}
+
+#block-rs {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-top-left-radius: 100px;
+    border-bottom-left-radius: 100px;
+    background: linear-gradient(-104deg, #000, rgba(13, 110, 253, .33));
+    box-shadow: 6px 3px 6px var(--bs-body-color)
+}
+
+.jam {
+    color: aliceblue;
+}

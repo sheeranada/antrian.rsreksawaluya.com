@@ -20,14 +20,6 @@ const fetchTampilkanYgDipanggil = async () => {
         console.log('Uppps:', error)
     }
 }
-// const fetchNonRacik = async () => {
-//     try {
-//         const response = await api.get('/api/farmasi/pasien-nonracik-anfar?page=2')
-//         resepNonRacik.value = response.data
-//     } catch (error) {
-//         console.log('Loooroooo atiku:', error)
-//     }
-// }
 const fetchNonRacik = async () => {
     try {
         const response = await api.get(`/api/farmasi/pasien-nonracik-anfar?page=${currentPage.value}`) // Menggunakan currentPage
@@ -44,15 +36,6 @@ const fetchRacik = async () => {
         console.log('haduuuh:', error)
     }
 }
-// const fetchRacik = async () => {
-//     try {
-//         const response = await api.get('/api/farmasi/pasien-obatracik-anfar')
-//         resepRacik.value = response.data
-//     } catch (error) {
-//         console.log('haduuuh:', error)
-//     }
-// }
-
 onMounted(() => {
     fetchTampilkanYgDipanggil()
     fetchNonRacik()
@@ -67,8 +50,8 @@ onMounted(() => {
     }, 1000)
     setInterval(() => {
         // Memperbarui nomor halaman setiap 5 detik
-        currentPage.value = currentPage.value >= 20 ? 1 : currentPage.value + 1
-    }, 5000)
+        currentPage.value = currentPage.value >= 22 ? 1 : currentPage.value + 1
+    }, 3500)
 })
 </script>
 
@@ -100,11 +83,6 @@ onMounted(() => {
                                             <p>NO RAWAT : {{ pasien.no_rawat }}</p>
                                         </li>
                                     </ul>
-                                    <!-- <ul class="font-monospace resep-list" id="teks-resep" v-for="data in resepNonRacik">
-                                        <li><b>{{ data.nm_pasien }}</b>
-                                            <p>NO RAWAT :{{ data.no_rawat }}</p>
-                                        </li>
-                                    </ul> -->
                                 </div>
                             </div>
                         </div>

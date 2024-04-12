@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Dashboard from "../views/Dashboard.vue";
-import HalamanPoli from "../views/Poli.vue";
+import HalamanPoli from "../views/Poliklinik.vue";
 import Anpol from "../views/Anpol.vue";
 import Anlok from "../views/Anlok.vue";
 import Displayloket from "../views/Displayloket.vue";

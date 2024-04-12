@@ -95,7 +95,7 @@ onMounted(() => {
         <nav class="navbar " style="background-color: #e3f2fd;">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
-                    <img src="../assets/logo_header.png" alt="Logo" width="100" height="35"
+                    <img src="../assets/logo_header.png" alt="Logo" width="165" height="35"
                         class="d-inline-block align-text-top logo px-1 py-1">
                     <b>UNIT FARMASI</b>
                 </a>

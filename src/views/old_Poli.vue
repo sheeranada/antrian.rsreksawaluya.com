@@ -3,30 +3,53 @@ import { ref, onMounted } from 'vue'
 import api from '../api/endpoint';
 
 const ralan = ref([]);
+const items = ref([])
+const pilihTanggal = ref('')
+const pilihDokter = ref('')
 
+// const fetchDataRalan = async () => {
+//     await api.get('/api/ralan')
+//         .then(response => {
+//             new DataTable('#myTable', {
+//                 layout: {
+//                     top1: 'searchBuilder'
+//                 },
+//                 data: response.data,
+//                 columns: [
+//                     { data: 'tgl_registrasi' },
+//                     { data: 'nm_pasien' },
+//                     { data: 'no_rkm_medis' },
+//                     { data: 'nm_dokter' },
+//                     {
+//                         data: null,
+//                         render: function (data, type, row) {
+//                             return `<button type="button" class="btn btn-secondary btn-detail" data-pasien="${row.nm_pasien}" data-dokter="${row.nm_dokter}"><i class="fas fa-play"></i></button>`;
+//                         }
+//                     }
+//                 ]
+//             })
+//         })
+// }
 const fetchDataRalan = async () => {
-    await api.get('/api/ralan')
-        .then(response => {
-            new DataTable('#myTable', {
-                layout: {
-                    top1: 'searchBuilder'
-                },
-                data: response.data,
-                columns: [
-                    { data: 'tgl_registrasi' },
-                    { data: 'nm_pasien' },
-                    { data: 'no_rkm_medis' },
-                    { data: 'nm_dokter' },
-                    {
-                        data: null,
-                        render: function (data, type, row) {
-                            return `<button type="button" class="btn btn-secondary btn-detail" data-pasien="${row.nm_pasien}" data-dokter="${row.nm_dokter}"><i class="fas fa-play"></i></button>`;
-                        }
-                    }
-                ]
-            })
-        })
+    try {
+        const response = await api.get('/api/ralan')
+        items.value = response.data
+        // console.log(response)
+    } catch (error) {
+        console.log('hikshiks:', error)
+    }
 }
+const filterItems = () => {
+    let filteredItems = items.value
+    if (pilihTanggal.value) {
+        filteredItems = filteredItems.filter(item => item.tgl_registrasi === pilihTanggal.value)
+    }
+    if (pilihDokter.value) {
+        filteredItems = filteredItems.filter(item => item.nm_dokter === pilihDokter.value)
+    }
+    return filterItems
+}
+
 onMounted(() => {
     fetchDataRalan()
 
@@ -103,6 +126,13 @@ onMounted(() => {
             </div>
         </nav>
         <div class="container mt-3">
+            <div class="row">
+                <div class="mb-3 col-4">
+                    <label for="tgl_peresepan" class="form-label">Tanggal Peresepan</label>
+                    <input type="date" class="form-control" id="tgl_peresepan" aria-describedby="emailHelp"
+                        v-model="pilihTanggal" @change="filterItems">
+                </div>
+            </div>
             <div class="row flex-row-reverse">
                 <div class="col-3">
                     <div class="input-group mb-3">
@@ -140,7 +170,13 @@ onMounted(() => {
                             </tr>
                         </thead>
                         <tbody>
-
+                            <tr v-for="item in filterItems()">
+                                <td>{{ item.tgl_registrasi }}</td>
+                                <td>{{ item.nm_pasien }}</td>
+                                <td>{{ item.no_rkm_medis }}</td>
+                                <td>{{ item.nm_dokter }}</td>
+                                <td><button type="button">test</button></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

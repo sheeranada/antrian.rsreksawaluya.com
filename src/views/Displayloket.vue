@@ -8,6 +8,12 @@ const response2 = ref(null)
 const response3 = ref(null)
 const response4 = ref(null)
 
+const waktuSekarang = ref(new Date().toLocaleString())
+
+const updateJam = () => {
+    waktuSekarang.value = new Date().toLocaleString()
+}
+
 const synth = window.speechSynthesis;
 
 let lastData = null;
@@ -19,7 +25,7 @@ const fetchProsesLoket1 = async () => {
     } catch (error) {
         if (error.response && error.response.status === 429) {
             // Terlalu banyak permintaan, atur backoff sebelum mencoba lagi
-            setTimeout(fetchProsesLoket4, 5000); // Tunggu 5 detik sebelum mencoba lagi
+            setTimeout(fetchProsesLoket1, 5000); // Tunggu 5 detik sebelum mencoba lagi
         } else {
             console.log(error);
         }
@@ -32,7 +38,7 @@ const fetchProsesLoket2 = async () => {
     } catch (error) {
         if (error.response && error.response.status === 429) {
             // Terlalu banyak permintaan, atur backoff sebelum mencoba lagi
-            setTimeout(fetchProsesLoket4, 5000); // Tunggu 5 detik sebelum mencoba lagi
+            setTimeout(fetchProsesLoket2, 5000); // Tunggu 5 detik sebelum mencoba lagi
         } else {
             console.log(error);
         }
@@ -45,7 +51,7 @@ const fetchProsesLoket3 = async () => {
     } catch (error) {
         if (error.response && error.response.status === 429) {
             // Terlalu banyak permintaan, atur backoff sebelum mencoba lagi
-            setTimeout(fetchProsesLoket4, 5000); // Tunggu 5 detik sebelum mencoba lagi
+            setTimeout(fetchProsesLoket3, 5000); // Tunggu 5 detik sebelum mencoba lagi
         } else {
             console.log(error);
         }
@@ -119,6 +125,9 @@ onMounted(() => {
         fetchProsesLoket3()
         fetchProsesLoket4()
     }, 7500)
+    setInterval(() => {
+        updateJam()
+    }, 1000)
 })
 </script>
 
@@ -134,7 +143,7 @@ onMounted(() => {
                     <h1 style="color: var(--bs-body-bg);">RS REKSA WALUYA</h1>
                 </div>
                 <div class="col-md-5 col-xxl-5 d-xl-flex justify-content-xl-center align-items-xl-center">
-                    <p class="jam">20:03:11&nbsp; 14/0/2024</p>
+                    <p class="jam">{{ waktuSekarang }}</p>
                 </div>
             </div>
         </header>

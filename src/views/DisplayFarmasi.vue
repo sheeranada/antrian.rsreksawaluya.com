@@ -49,7 +49,6 @@ onMounted(() => {
         updateJam()
     }, 1000)
     setInterval(() => {
-        // Memperbarui nomor halaman setiap 5 detik
         currentPage.value = currentPage.value >= 22 ? 1 : currentPage.value + 1
     }, 3500)
 })

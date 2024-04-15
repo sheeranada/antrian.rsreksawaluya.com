@@ -1,0 +1,24 @@
+.dasaran {
+    background: url("./img/admisi.jpg") center/cover no-repeat;
+    width: 100%;
+    height: 100vh
+}
+
+#headercuy {
+    background: linear-gradient(43deg, rgba(0, 0, 0, .64), rgba(255, 255, 255, .46));
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    padding-top: 10px;
+    padding-bottom: 5px
+}
+
+.admisi {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--bs-orange)
+}
+
+#kotak-wasiat {
+    width: 325px;
+    padding: 18px 10px 10px
+}

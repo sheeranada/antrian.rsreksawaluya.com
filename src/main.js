@@ -2,6 +2,7 @@
 import "./assets/anpol.min.css";
 import "./assets/display_farmasi/css/anfar.min.css";
 import "./assets/anlok.min.css";
+import "./assets/ADMISI.min.css";
 
 import { createApp } from "vue";
 import App from "./App.vue";

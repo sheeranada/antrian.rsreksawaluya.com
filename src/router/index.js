@@ -6,6 +6,7 @@ import Anlok from "../views/Anlok.vue";
 import Displayloket from "../views/Displayloket.vue";
 import Farmasi from "@/views/Farmasi.vue";
 import DisplayFarmasi from "@/views/DisplayFarmasi.vue";
+import Admisi from "@/views/Admisi.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -44,6 +45,11 @@ const router = createRouter({
       path: "/display-farmasi",
       name: "display-farmasi",
       component: DisplayFarmasi,
+    },
+    {
+      path: "/admisi",
+      name: "admisi",
+      component: Admisi,
     },
   ],
 });

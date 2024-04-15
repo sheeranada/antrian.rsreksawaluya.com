@@ -124,10 +124,6 @@ onMounted(() => {
 
 <template>
     <div class="hero">
-
-        <!-- <h1>ANTRIAN LOKET</h1>
-            <p>antrian nomor {{ nomorDilayani.antrian_nomor }}</p>
-            <p>di loket {{ nomorDilayani.loket_nomor }}</p> -->
         <header>
             <div class="row header">
                 <div
@@ -141,13 +137,26 @@ onMounted(() => {
                     <p class="jam">20:03:11&nbsp; 14/0/2024</p>
                 </div>
             </div>
-        </header><!-- End: HEADER --><!-- Start: KONTEN -->
+        </header>
+        <!-- End: HEADER -->
+        <!-- Start: KONTEN -->
         <article class="mt-3">
-            <div class="row konten " style="padding-right: 50px;padding-left: 50px;"><!-- Start: VIDEO -->
-                <div class="col-sm-6 col-md-7 col-xxl-7"><iframe allowfullscreen="" frameborder="0"
+            <div class="row konten " style="padding-right: 50px;padding-left: 50px;">
+                <!-- Start: VIDEO -->
+                <div class="col-sm-6 col-md-7 col-xxl-7">
+                    <iframe width="560" height="315" class="video"
+                        src="https://www.youtube.com/embed/k_07e5Xwufo?si=XIOW3OjG7_wSPZFO&amp;controls=0&autoplay=1&mute=1&loop=1&playlist=k_07e5Xwufo"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                    </iframe>
+
+                </div>
+                <!-- <div class="col-sm-6 col-md-7 col-xxl-7"><iframe allowfullscreen="" frameborder="0"
                         src="https://www.youtube.com/embed/G8KdzZevn4Q?autoplay=1&amp;mute=1&amp;loop=1&amp;playlist=G8KdzZevn4Q&amp;controls=0"
-                        class="video" width="560" height="315"></iframe></div>
-                <!-- End: VIDEO --><!-- Start: AREA PASIEN -->
+                        class="video" width="560" height="315"></iframe></div> -->
+                <!-- End: VIDEO -->
+                <!-- Start: AREA PASIEN -->
                 <div class="col-md-5 col-xxl-5">
                     <div class="row gap-2"><!-- Start: LOKET -->
                         <div class="col-12 antrian">
@@ -173,7 +182,7 @@ onMounted(() => {
         </article><!-- End: KONTEN --><!-- Start: FOOTER -->
         <footer class="mt-3">
             <!-- Start: LOKET1 -->
-            <div class="card kotak-antrian1">
+            <div class="card kotak-antrian1 g-5">
                 <div class="card-header1">
                     <span class="antrian-poli">LOKET 1</span>
                 </div>
@@ -215,7 +224,7 @@ onMounted(() => {
 </template>
 <style scoped>
 .hero {
-    background: url("/src/assets/img/anpol.jpg") center / cover no-repeat;
+    background: url("/src/assets/img/anpol.jpg") top / cover no-repeat;
     width: 100%;
     height: 100vh;
 }

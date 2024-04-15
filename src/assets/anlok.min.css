@@ -18,7 +18,7 @@ body {
     content: ""
 }
 
-.header {
+.row.header {
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     margin-top: 6px;
@@ -81,7 +81,7 @@ footer {
 
 @media (min-width:1200px) {
     .card.kotak-antrian1 {
-        width: 275px;
+        width: 260px;
         background: rgba(255, 255, 255, .11);
         backdrop-filter: blur(11px);
         -webkit-backdrop-filter: blur(11px);
@@ -92,7 +92,7 @@ footer {
 }
 
 .card.kotak-antrian1 {
-    width: 400px;
+    width: 425px;
     background: rgba(255, 255, 255, .11);
     backdrop-filter: blur(11px);
     -webkit-backdrop-filter: blur(11px);

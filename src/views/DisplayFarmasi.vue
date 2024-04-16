@@ -62,7 +62,7 @@ onMounted(() => {
                     <h1 style="color: var(--bs-body-bg);">ANTRIAN FARMASI</h1>
                 </div>
                 <div class="col-md-5 col-xxl-5">
-                    <h4 class="jam">{{ waktuSekarang }}</h4>
+                    <h4 class="jam-farmasi">{{ waktuSekarang }}</h4>
                 </div>
             </div>
         </header><!-- End: HEADER --><!-- Start: KONTEN -->
@@ -101,7 +101,8 @@ onMounted(() => {
                         </div>
                     </div>
                 </div><!-- End: RESEP --><!-- Start: VIDEO -->
-                <div class="col-md-5 col-xxl-5 d-xxl-flex justify-content-xxl-center align-items-xxl-center video">
+                <div class="col-md-5 col-xxl-5 d-xxl-flex justify-content-xxl-center align-items-xxl-center "
+                    id="video">
                     <iframe allowfullscreen="" frameborder="0"
                         src="https://www.youtube.com/embed/skhVx1yeXKc?autoplay=1&amp;mute=1&amp;loop=1&amp;playlist=skhVx1yeXKc&amp;controls=0"
                         width="560" height="315" style="height: 100%;width: 100%;"></iframe>
